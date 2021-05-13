@@ -79,6 +79,8 @@ public class StringManager {
             if (locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
                 locale = Locale.ROOT;
             }
+            // 设置语言为英语
+            locale = Locale.ROOT;
             bnd = ResourceBundle.getBundle(bundleName, locale);
         } catch (MissingResourceException ex) {
             // Try from the current loader (that's the case for trusted apps)
