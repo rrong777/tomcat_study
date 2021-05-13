@@ -16,6 +16,7 @@
  */
 package org.apache.tomcat.util.res;
 
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -79,8 +80,6 @@ public class StringManager {
             if (locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
                 locale = Locale.ROOT;
             }
-            // 设置语言为英语
-            locale = Locale.ROOT;
             bnd = ResourceBundle.getBundle(bundleName, locale);
         } catch (MissingResourceException ex) {
             // Try from the current loader (that's the case for trusted apps)
@@ -168,7 +167,11 @@ public class StringManager {
         if (value == null) {
             value = key;
         }
-
+        try {
+            value = new String(value.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         MessageFormat mf = new MessageFormat(value);
         mf.setLocale(locale);
         return mf.format(args, new StringBuffer(), null).toString();
