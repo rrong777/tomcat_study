@@ -56,7 +56,8 @@ public class Localizer {
         String errMsg = errCode;
         try {
             if (bundle != null) {
-                errMsg = new String (bundle.getString(errCode).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                errMsg = bundle.getString(errCode);
+                errMsg = new String (errMsg.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             }
         } catch (MissingResourceException e) {
         }
